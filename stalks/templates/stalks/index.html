@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stalk Market</title>
+</head>
+<body>
+
+<h1> Stalk Weeks </h1>
+
+{% if stalkweek_list %}
+    <ul>
+    {% for week in stalkweek_list %}
+        <li><a href="{% url 'stalks:stalk_week_detail' week.id %}">{{ week }}</a></li>
+        <ul>
+            {% for day_price in week.dayprices_set.all %}
+                <li>{{ day_price }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+</body>
+</html>

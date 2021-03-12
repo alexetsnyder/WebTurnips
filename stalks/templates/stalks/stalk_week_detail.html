@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stalk Week Detail</title>
+</head>
+<body>
+
+<h1>Stalk Week Detail</h1>
+
+<h2>Week {{ stalkweek.id }}</h2>
+
+<p>
+    Sunday: {{ stalkweek.start_date }}<br>
+    Saturday: {{ stalkweek.end_date }}<br>
+    Buy Price: {{ stalkweek.buy_price }}<br>
+
+</p>
+
+<p>
+    Turnips: {{ stalkweek.turnips }}
+</p>
+
+<ul>
+    {% for day_price in stalkweek.dayprices_set.all %}
+        <li>{{ day_price }}</li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for turnip in stalkweek.turnipstack_set.all %}
+        <li>{{ turnip }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
