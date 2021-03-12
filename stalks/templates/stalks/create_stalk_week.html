@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Stalk Week</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stalks/create_stalk_week.css' %}">
+
+</head>
+<body>
+
+<div>
+    <form action="{% url 'stalks:new_stalk_week' %}" method="post">
+        {% csrf_token %}
+        <label for="nbrTurnipPrice">Turnip Price:</label>
+        <input type="number" name="TurnipPrice" id="nbrTurnipPrice" class="inputFields">
+        <br>
+        <br>
+        <label for="nbrTurnipCount">Turnip Stack Count:</label>
+        <input type="number" name="TurnipCount" id="nbrTurnipCount" class="inputFields">
+        <br>
+        <br>
+        <label for="dateWeek">Week Date:</label>
+        <input type="date" name="WeekDate" id="dateWeek" value="{{ now }}" class="inputFields">
+        <br>
+        <br>
+        <input type="submit" value="CreateWeek">
+    </form>
+</div>
+
+</body>
+</html>
