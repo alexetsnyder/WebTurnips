@@ -18,7 +18,7 @@
 </p>
 
 <p>
-    Turnips: {{ stalkweek.turnips }}
+    Turnips: {{ stalkweek.turnip_count }}
 </p>
 
 <ul>
@@ -28,8 +28,10 @@
 </ul>
 
 <ul>
-    {% for turnip in stalkweek.turnipstack_set.all %}
-        <li>{{ turnip }}</li>
+    {% for turnip_row in stalkweek.get_merged_turnips %}
+        <li>
+            Turnips: {{ turnip_row.turnip_count }} Sold at: {{ turnip_row.turnip_price }}
+        </li>
     {% endfor %}
 </ul>
 
