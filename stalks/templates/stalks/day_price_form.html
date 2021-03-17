@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Day Price Form</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stalks/css/base_form.css' %}">
+
+</head>
+<body>
+
+<h2>{{ stalk_week }}</h2>
+
+<form method="post" action="{% url 'stalks:add_day_price' stalk_week.id %}">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Add Day Price">
+</form>
+
+</body>
+</html>

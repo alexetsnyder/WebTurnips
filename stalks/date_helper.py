@@ -11,6 +11,10 @@ class WeekDay:
     SUNDAY = 6
 
 
+INTERNAL_DATE_FORMAT = '%Y-%m-%d'
+OUTPUT_DATE_FORMAT = '%B %d %Y'
+
+
 SUNDAY_FIRST_LOOK_UP_TABLE = [x + 1 for x in range(WeekDay.SUNDAY)] + [0]
 
 
@@ -23,7 +27,7 @@ def week_day_delta(current_week_day, wanted_week_day):
 
 
 class DateHelper:
-    def __init__(self, date_str, date_format):
+    def __init__(self, date_str, date_format=INTERNAL_DATE_FORMAT):
         self.date_format = date_format
         self.date = datetime.datetime.strptime(date_str, self.date_format)
 

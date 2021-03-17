@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Turnip Stacks Form</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'stalks/css/base_form.css' %}">
+    <script src="{% static 'jquery-3.6.0.js' %}"></script>
+
+</head>
+<body>
+
+<h2>{{ stalk_week }}</h2>
+
+<form action="{% url 'stalks:add_turnip_stacks' stalk_week.id %}" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Add Turnip Stacks">
+</form>
+
+<script src="{% static 'stalks/javascript/turnip_count_update.js' %}"></script>
+
+</body>
+</html>
