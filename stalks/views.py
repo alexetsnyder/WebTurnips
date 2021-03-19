@@ -17,6 +17,7 @@ class StalkWeekDetail(generic.DetailView):
 
 
 def add_stalk_week(request):
+    latest_stalk_week_list = StalkWeek.objects.order_by('-sunday')[:5]
     if request.method == 'POST':
         form = AddStalkWeekForm(request.POST)
         if form.is_valid():
@@ -24,7 +25,11 @@ def add_stalk_week(request):
             return HttpResponseRedirect(reverse('stalks:stalk_week_detail', args=(stalk_week.id,)))
     else:
         form = AddStalkWeekForm(initial={'current_date': timezone.now()})
-    return render(request, 'stalks/stalk_week_form.html', {'form': form})
+    return render(
+                request,
+                'stalks/stalk_week_form.html',
+                {'latest_stalk_week_list': latest_stalk_week_list, 'form': form}
+            )
 
 
 def add_day_price(request, stalk_week_id):

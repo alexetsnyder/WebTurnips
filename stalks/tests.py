@@ -35,3 +35,4 @@ class StalkWeekModel(TestCase):
         self.assertIn((20, 100, 2000), turnip_stacks)
         self.assertIn((20, 120, 2400), turnip_stacks)
         self.assertIn((20, 0, 0), turnip_stacks)
+        self.assertEqual(len(turnip_stacks), 3)

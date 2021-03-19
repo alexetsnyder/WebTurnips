@@ -1,22 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Stalk Week Detail</title>
-</head>
-<body>
+{% extends 'stalks/base_html.html' %}
 
-<h1>Stalk Week Detail</h1>
+{% block title_block %}Stalk Week Detail{% endblock %}
 
-<h2>Week Sunday: {{ stalkweek.sunday }} -- Saturday: {{ stalkweek.saturday }}</h2>
+{% block stalk_week_dropdown %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Stalk Weeks
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for week in stalkweek.get_latest_stalk_weeks %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'stalks:stalk_week_detail' week.id %}">
+                        {{ week.sunday|date:"M d Y" }} -- {{ week.saturday|date:"M d Y" }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endblock %}
+
+{% block body_block %}
+<h2>Stalk Week Detail</h2>
+
+<h3>Week: Sunday: {{ stalkweek.sunday }} -- Saturday: {{ stalkweek.saturday }}</h3>
+
+{% load humanize %}
 
 <p>
-    Buy Price: {{ stalkweek.buy_price }}<br>
-    Stacks: {{ stalkweek.get_turnip_stacks|length }}<br>
-    Turnips: {{ stalkweek.turnip_count }}<br>
-    Total Cost: {{ stalkweek.get_cost }}<br>
-    Total Sales: {{ stalkweek.get_sales }}<br>
-    Profit: {{ stalkweek.get_profit }}
+    Buy Price: {{ stalkweek.buy_price|intcomma }} Bells<br>
+    Stacks: {{ stalkweek.get_turnip_stacks|length|intcomma }} Bells<br>
+    Turnips: {{ stalkweek.turnip_count|intcomma }} Bells<br>
+    Total Cost: {{ stalkweek.get_cost|intcomma }} Bells<br>
+    Total Sales: {{ stalkweek.get_sales|intcomma }} Bells<br>
+    Profit: {{ stalkweek.get_profit|intcomma }} Bells
 </p>
 
 <ul>
@@ -27,10 +43,13 @@
 
 <a href="{% url 'stalks:add_day_price' stalkweek.id %}">Add Day Price</a>
 
+<br>
+<br>
+
 <ul>
     {% for turnip_row in stalkweek.get_merged_turnips %}
         <li>
-            Turnips: {{ turnip_row.turnip_count }} Sold at: {{ turnip_row.single_price }} Total: {{ turnip_row.turnip_price }}
+            {{ turnip_row }}
         </li>
     {% endfor %}
 </ul>
@@ -41,5 +60,4 @@
 
 <a href="{% url 'stalks:sell_turnip_stacks' stalkweek.id %}">Sell Turnip Stacks</a>
 
-</body>
-</html>
+{% endblock %}

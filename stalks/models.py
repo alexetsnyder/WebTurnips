@@ -4,8 +4,12 @@ from django.db import models
 class MergedTurnipRow:
     def __init__(self, turnip_count, single_price, turnip_price):
         self.turnip_count = turnip_count
-        self.turnip_price = turnip_price
+        self.total_sales = turnip_price
         self.single_price = single_price
+
+    def __str__(self):
+        return 'Turnips: {0:,} -- Sold at: {1} Bells each -- Total: {2:,} Bells'\
+                .format(self.turnip_count, self.single_price, self.total_sales)
 
 
 class StalkWeek (models.Model):
@@ -15,8 +19,8 @@ class StalkWeek (models.Model):
 
     def __str__(self):
         ret_str = 'Week: {:%B %d %Y} - {:%B %d %Y} -- '.format(self.sunday, self.saturday)
-        ret_str += '{0} turnips, at {1} bells each, '.format(self.turnip_count(), self.buy_price)
-        ret_str += '{0} total cost -- Profit: {1} Bells'.format(self.get_cost(), self.get_profit())
+        ret_str += '{0:,} turnips, at {1:,} bells each, '.format(self.turnip_count(), self.buy_price)
+        ret_str += '{0:,} total cost -- Profit: {1:,} Bells'.format(self.get_cost(), self.get_profit())
         return ret_str
 
     def get_turnip_stacks(self):
@@ -56,6 +60,9 @@ class StalkWeek (models.Model):
     def get_profit(self):
         return self.get_sales() - self.get_cost()
 
+    def get_latest_stalk_weeks(self):
+        return StalkWeek.objects.order_by("-sunday")[:5]
+
 
 class DayPrices (models.Model):
     current_date = models.DateField('Day of week')
@@ -64,7 +71,7 @@ class DayPrices (models.Model):
     stalk_week = models.ForeignKey(StalkWeek, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Date: {0} -- Sell Prices: Before noon: {1} After noon: {2}' \
+        return 'Date: {0:%B %m %Y} -- Price before noon: {1} -- Price after noon: {2} Bells' \
             .format(self.current_date, self.first_sell_price, self.last_sell_price)
 
 
@@ -73,9 +80,6 @@ class TurnipStack (models.Model):
     sell_date = models.DateField('Date turnips sold')
     sell_price = models.IntegerField('Price turnip sold at')
     stalk_week = models.ForeignKey(StalkWeek, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return '10 turnips sold at {0}'.format(self.sell_price)
 
     def get_sales(self):
         return 10 * self.sell_price

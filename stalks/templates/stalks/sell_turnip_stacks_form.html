@@ -1,23 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Turnip Stacks Form</title>
+{% extends 'stalks/base_html.html' %}
 
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'stalks/css/base_form.css' %}">
-    <script src="{% static 'jquery-3.6.0.js' %}"></script>
+{% block title_block %}Sell Turnip Stacks Form{% endblock %}
 
-</head>
-<body>
+{% block head_block %}
 
-<h2>{{ stalk_week }}</h2>
+{% load static %}
+<script src="{% static 'stalks/javascript/turnip_count_update.js' %}"></script>
 
-<h3>
+{% endblock %}
+
+{% block stalk_week_dropdown %}
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Stalk Weeks
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for week in stalk_week.get_latest_stalk_weeks %}
+                <li>
+                    <a class="dropdown-item" href="{% url 'stalks:stalk_week_detail' week.id %}">
+                        {{ week.sunday|date:"M d Y" }} -- {{ week.saturday|date:"M d Y" }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </li>
+{% endblock %}
+
+{% block body_block %}
+
+<h2>Sell Turnip Stacks</h2>
+
+<h4>{{ stalk_week }}</h4>
+
+<p>
     {% for turnip_row in stalk_week.get_merged_turnips %}
-        Turnips: {{ turnip_row.turnip_count }} Sold at: {{ turnip_row.single_price }} Total: {{ turnip_row.turnip_price }} <br>
+        {{ turnip_row }} <br>
     {% endfor %}
-</h3>
+</p>
 
 <form action="{% url 'stalks:sell_turnip_stacks' stalk_week.id %}" method="post">
     {% csrf_token %}
@@ -27,7 +46,4 @@
     <input type="submit" value="Sell Turnip Stacks">
 </form>
 
-<script src="{% static 'stalks/javascript/turnip_count_update.js' %}"></script>
-
-</body>
-</html>
+{% endblock %}
