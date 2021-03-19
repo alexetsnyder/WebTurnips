@@ -5,6 +5,7 @@ function trim(string, trimChars)
     return fixedStr;
 }
 
+//To do: Stalk week detail, add day price, add turnip stack, sell turnip stacks
 $(function () {
     const path = trim(window.location.pathname, '/');
     console.log(path);

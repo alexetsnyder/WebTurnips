@@ -2,21 +2,14 @@
 
 {% block title_block %}Stalk Week Detail{% endblock %}
 
-{% block stalk_week_dropdown %}
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Stalk Weeks
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            {% for week in stalkweek.get_latest_stalk_weeks %}
-                <li>
-                    <a class="dropdown-item" href="{% url 'stalks:stalk_week_detail' week.id %}">
-                        {{ week.sunday|date:"M d Y" }} -- {{ week.saturday|date:"M d Y" }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </li>
+{% block stalk_week_dropdown_items %}
+    {% for week in stalkweek.get_latest_stalk_weeks %}
+        <li>
+            <a class="dropdown-item" href="{% url 'stalks:stalk_week_detail' week.id %}">
+                {{ week.sunday|date:"M d Y" }} -- {{ week.saturday|date:"M d Y" }}
+            </a>
+        </li>
+    {% endfor %}
 {% endblock %}
 
 {% block body_block %}

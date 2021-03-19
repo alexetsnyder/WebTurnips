@@ -3,6 +3,10 @@ body {
    /*background-color: #c4bcb4;*/
 }
 
+.navbar-custom {
+    background-color: #bb1f44;
+}
+
 th {
     text-align: left;
 }
