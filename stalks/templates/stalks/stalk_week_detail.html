@@ -20,9 +20,9 @@
 {% load humanize %}
 
 <p>
+    Stacks: {{ stalkweek.get_turnip_stacks|length|intcomma }} <br>
+    Turnips: {{ stalkweek.turnip_count|intcomma }} <br>
     Buy Price: {{ stalkweek.buy_price|intcomma }} Bells<br>
-    Stacks: {{ stalkweek.get_turnip_stacks|length|intcomma }} Bells<br>
-    Turnips: {{ stalkweek.turnip_count|intcomma }} Bells<br>
     Total Cost: {{ stalkweek.get_cost|intcomma }} Bells<br>
     Total Sales: {{ stalkweek.get_sales|intcomma }} Bells<br>
     Profit: {{ stalkweek.get_profit|intcomma }} Bells

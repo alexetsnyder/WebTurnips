@@ -71,7 +71,7 @@ class DayPrices (models.Model):
     stalk_week = models.ForeignKey(StalkWeek, on_delete=models.CASCADE)
 
     def __str__(self):
-        return 'Date: {0:%B %m %Y} -- Price before noon: {1} -- Price after noon: {2} Bells' \
+        return 'Date: {0:%B %d %Y} -- Price before noon: {1} -- Price after noon: {2} Bells' \
             .format(self.current_date, self.first_sell_price, self.last_sell_price)
 
 

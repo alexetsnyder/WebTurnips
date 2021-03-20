@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Date Widget</title>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'jquery/jquery-ui.min.css' %}">
+
+    <script src="{% static 'jquery/jquery-3.6.0.js' %}"></script>
+    <script src="{% static 'jquery/jquery-ui.min.js' %}"></script>
+</head>
+<body>
+
+   <input type="text" id="customdatepicker-{{ widget.name }}" name="{{ widget.name }}" class="datepicker" value="{{ widget.value|date:"F d Y" }}">
+
+    <script>
+      $(function () {
+        $('.datepicker').datepicker({
+            dateFormat: "MM dd yy",
+        });
+      });
+    </script>
+
+</body>
+</html>

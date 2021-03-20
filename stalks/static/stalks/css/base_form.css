@@ -3,6 +3,10 @@ body {
    /*background-color: #c4bcb4;*/
 }
 
+#bodyBlockWrapper {
+    padding-left: 10px;
+}
+
 .navbar-custom {
     background-color: #bb1f44;
 }
@@ -12,7 +16,10 @@ th {
 }
 
 td {
+    padding-left: 20px;
     text-align: right;
 }
+
+
 
 

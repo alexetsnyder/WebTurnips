@@ -1,13 +1,17 @@
 from django import forms
 from .date_helper import DateHelper
 from .models import StalkWeek, TurnipStack, DayPrices
-
-DATE_TYPE_ATTR = {'type': 'date'}
+from .widgets import CustomDatePicker
 
 
 class DefaultDateField(forms.DateField):
     def __init__(self, *args, **kwargs):
-        super(DefaultDateField, self).__init__(*args, widget=forms.DateInput(attrs=DATE_TYPE_ATTR), **kwargs)
+        super(DefaultDateField, self).__init__(
+            *args,
+            input_formats=['%B %d %Y'],
+            widget=CustomDatePicker(),
+            **kwargs
+        )
 
 
 class ModelForm(forms.Form):
