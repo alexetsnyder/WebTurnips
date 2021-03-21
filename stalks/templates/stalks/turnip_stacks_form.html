@@ -19,6 +19,18 @@
     {% endfor %}
 {% endblock %}
 
+{% block nav_add_turnip_stacks %}
+    <a id="navAddTurnipStacks" class="nav-link" href="#">Add Turnip Stacks</a>
+{% endblock %}
+
+{% block nav_add_day_price %}
+    <a id="navAddDayPrice" class="nav-link" href="{% url 'stalks:add_day_price' stalk_week.id %}">Add Day Price</a>
+{% endblock %}
+
+{% block nav_sell_turnip_stacks %}
+    <a id="navSellTurnipStacks" class="nav-link" href="{% url 'stalks:sell_turnip_stacks'  stalk_week.id %}">Sell Turnip Stacks</a>
+{% endblock %}
+
 {% block body_block %}
 
 <h2>Add Turnip Stacks</h2>
@@ -30,7 +42,9 @@
     <table>
         {{ form.as_table }}
     </table>
-    <input type="submit" value="Add Turnip Stacks">
+    <button style="margin-top: 20px" class="btn btn-success btn-lg" type="submit">
+        <i class="fa fa-plus" style="padding-right: 10px" ></i> Turnip Stacks
+    </button>
 </form>
 
 {% endblock %}

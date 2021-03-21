@@ -12,6 +12,18 @@
     {% endfor %}
 {% endblock %}
 
+{% block nav_add_day_price %}
+    <a id="navAddDayPrice" class="nav-link" href="{% url 'stalks:add_day_price' stalkweek.id %}">Add Day Price</a>
+{% endblock %}
+
+{% block nav_add_turnip_stacks %}
+    <a id="navAddTurnipStacks" class="nav-link" href="{% url 'stalks:add_turnip_stacks' stalkweek.id %}">Add Turnip Stacks</a>
+{% endblock %}
+
+{% block nav_sell_turnip_stacks %}
+    <a id="navSellTurnipStacks" class="nav-link" href="{% url 'stalks:sell_turnip_stacks'  stalkweek.id %}">Sell Turnip Stacks</a>
+{% endblock %}
+
 {% block body_block %}
 <h2>Stalk Week Detail</h2>
 
@@ -34,7 +46,9 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'stalks:add_day_price' stalkweek.id %}">Add Day Price</a>
+<a href="{% url 'stalks:add_day_price' stalkweek.id %}" class="btn btn-success btn-lg">
+    <i style="padding-right: 10px" class="fa fa-plus"></i>Day Price
+</a>
 
 <br>
 <br>
@@ -47,10 +61,12 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'stalks:add_turnip_stacks' stalkweek.id %}">Add Turnip Stacks</a>
+<a style="margin-right: 10px" href="{% url 'stalks:add_turnip_stacks' stalkweek.id %}" class="btn btn-success btn-lg">
+    <i style="padding-right: 10px" class="fa fa-plus"></i>Turnip Stacks
+</a>
 
-<br>
-
-<a href="{% url 'stalks:sell_turnip_stacks' stalkweek.id %}">Sell Turnip Stacks</a>
+<a href="{% url 'stalks:sell_turnip_stacks' stalkweek.id %}" class="btn btn-success btn-lg">
+    <i style="padding-right: 10px" class="fa fa-bell"></i>Turnip Stacks
+</a>
 
 {% endblock %}

@@ -8,8 +8,9 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'stalks/css/base_form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'stalks/css/styles.css' %}">
 
     <script src="{% static 'jquery/jquery-3.6.0.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
@@ -33,9 +34,6 @@
           <a id="navHomePageLink" class="nav-link active" aria-current="page" href="{% url 'stalks:index' %}">HomePage
           </a>
         </li>
-        <li class="nav-item">
-          <a id="navAddStalkWeekLink" class="nav-link" href="{% url 'stalks:add_stalk_week' %}">Add Stalk Week</a>
-        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="stalkItemDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Stalk Weeks
@@ -43,6 +41,24 @@
             <ul class="dropdown-menu" aria-labelledby="stalkItemDropdown">
                 {% block stalk_week_dropdown_items %}{% endblock %}
             </ul>
+        </li>
+        <li class="nav-item">
+          <a id="navAddStalkWeekLink" class="nav-link" href="{% url 'stalks:add_stalk_week' %}">Add Stalk Week</a>
+        </li>
+        <li class="nav-item">
+            {% block nav_add_day_price %}
+                <a id="navAddDayPrice" class="nav-link disabled" href="#">Add Day Price</a>
+            {% endblock %}
+        </li>
+        <li class="nav-item">
+            {% block nav_add_turnip_stacks %}
+                <a id="navAddTurnipStacks" class="nav-link disabled" href="#">Add Turnip Stacks</a>
+            {% endblock %}
+        </li>
+        <li class="nav-item">
+            {% block nav_sell_turnip_stacks %}
+                <a id="navSellTurnipStacks" class="nav-link disabled" href="#">Sell Turnip Stacks</a>
+            {% endblock %}
         </li>
       </ul>
 {#      <form class="d-flex">#}

@@ -11,6 +11,17 @@ body {
     background-color: #bb1f44;
 }
 
+.btn-custom {
+    /*background-color: #30694B;*/
+    /*background-color: #62BD69;*/
+    background-color: #0EBFE9;
+    border-color: #0EBFE9;
+}
+
+.btn-custom:hover {
+    background-color: #0EBFE9;
+}
+
 th {
     text-align: left;
 }

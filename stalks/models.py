@@ -2,14 +2,15 @@ from django.db import models
 
 
 class MergedTurnipRow:
-    def __init__(self, turnip_count, single_price, turnip_price):
+    def __init__(self, sell_date, turnip_count, single_price, turnip_price):
+        self.sell_date = sell_date
         self.turnip_count = turnip_count
         self.total_sales = turnip_price
         self.single_price = single_price
 
     def __str__(self):
-        return 'Turnips: {0:,} -- Sold at: {1} Bells each -- Total: {2:,} Bells'\
-                .format(self.turnip_count, self.single_price, self.total_sales)
+        return 'Date: {3:%B %d %Y} -- Turnips: {0:,} -- Sold at: {1} Bells each -- Total: {2:,} Bells'\
+                .format(self.turnip_count, self.single_price, self.total_sales, self.sell_date)
 
 
 class StalkWeek (models.Model):
@@ -18,9 +19,9 @@ class StalkWeek (models.Model):
     buy_price = models.IntegerField('Turnip buy price')
 
     def __str__(self):
-        ret_str = 'Week: {:%B %d %Y} - {:%B %d %Y} -- '.format(self.sunday, self.saturday)
-        ret_str += '{0:,} turnips, at {1:,} bells each, '.format(self.turnip_count(), self.buy_price)
-        ret_str += '{0:,} total cost -- Profit: {1:,} Bells'.format(self.get_cost(), self.get_profit())
+        ret_str = 'Week: {:%B %d %Y} - {:%B %d %Y} - '.format(self.sunday, self.saturday)
+        ret_str += 'Buy price: {0} - Total cost: {1:,} - '.format(self.buy_price, self.get_cost())
+        ret_str += 'Profit {0:,} Bells'.format(self.get_profit())
         return ret_str
 
     def get_turnip_stacks(self):
@@ -34,22 +35,23 @@ class StalkWeek (models.Model):
         merged_turnip_stacks = []
         while len(all_turnip_stacks) > 0:
             turnip_stack = all_turnip_stacks.pop()
+            sell_date = turnip_stack.sell_date
             total_count = turnip_stack.stack_size
             single_price = turnip_stack.sell_price
             total_price = turnip_stack.get_sales()
             temp_turnip_stacks = [stack for stack in all_turnip_stacks]
             all_turnip_stacks.clear()
             for stack in temp_turnip_stacks:
-                if stack.sell_price == turnip_stack.sell_price:
+                if stack.sell_date == sell_date and stack.sell_price == single_price:
                     total_count += stack.stack_size
                     total_price += stack.get_sales()
                 else:
                     all_turnip_stacks.append(stack)
-            merged_turnip_stacks.append((total_count, single_price, total_price))
+            merged_turnip_stacks.append((sell_date, total_count, single_price, total_price))
         return merged_turnip_stacks
 
     def get_merged_turnips(self):
-        return [MergedTurnipRow(count, single, price) for count, single, price in self.merge_turnips()]
+        return [MergedTurnipRow(date, count, single, price) for date, count, single, price in self.merge_turnips()]
 
     def get_cost(self):
         return self.turnip_count() * self.buy_price

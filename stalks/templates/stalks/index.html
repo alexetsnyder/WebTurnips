@@ -17,18 +17,22 @@
 <h1> Stalk Weeks </h1>
 
 {% if stalkweek_list %}
-    <ul>
     {% for week in stalkweek_list %}
-        <li><a href="{% url 'stalks:stalk_week_detail' week.id %}">{{ week }}</a></li>
+        <a style="float: left" href="{% url 'stalks:stalk_week_detail' week.id %}">{{ week }}</a>
+        <br>
         <ul>
-            {% for day_price in week.dayprices_set.all %}
-                <li>{{ day_price }}</li>
+            {% for stack in week.get_merged_turnips %}
+                <li>{{ stack }}</li>
             {% endfor %}
         </ul>
+        <hr style="width: 60%">
     {% endfor %}
-    </ul>
 {% endif %}
 
-<a href="{% url 'stalks:add_stalk_week' %}">Add Stalk Week</a>
+{% load static %}
+
+<a href="{% url 'stalks:add_stalk_week' %}" class="btn btn-success btn-lg">
+    <i style="padding-right: 10px" class="fa fa-plus"></i>Stalk Week
+</a>
 
 {% endblock %}

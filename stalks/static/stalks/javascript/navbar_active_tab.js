@@ -26,6 +26,15 @@ $(function () {
             case 'newweek':
                 $('#navAddStalkWeekLink').addClass('active');
                 break;
+            case 'newprice':
+                $('#navAddDayPrice').addClass('active');
+                break;
+            case 'newstacks':
+                $('#navAddTurnipStacks').addClass('active');
+                break;
+            case 'sellstacks':
+                $('#navSellTurnipStacks').addClass('active');
+                break;
             default:
                 $('#navHomePageLink').addClass('active');
         }
