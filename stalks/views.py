@@ -123,7 +123,7 @@ def add_turnip_stacks(request, stalk_week_id):
 def delete_stalk_week(response, pk):
     stalk_week = get_object_or_404(StalkWeek, pk=pk)
     affected = stalk_week.delete()
-    return HttpResponseRedirect(reverse('stalks:stalk_week_list'))
+    return HttpResponseRedirect(reverse('stalks:stalk_week_lists'))
 
 
 def validate_stalk_week(request):

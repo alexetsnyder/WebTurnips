@@ -14,7 +14,7 @@
                 <p>{{ week.get_card_content }}</p>
             </div>
             <script>
-                $(this).click(function () {
+                $('.card').last().click(function () {
                     document.location.href = {{ week.id }};
                 });
             </script>
