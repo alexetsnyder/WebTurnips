@@ -1,16 +1,6 @@
-{% extends 'stalks/base_html.html' %}
+{% extends 'stalks/navbar_template.html' %}
 
 {% block title_block %}Stalk Week Detail{% endblock %}
-
-{% block stalk_week_dropdown_items %}
-    {% for week in stalkweek.get_latest_stalk_weeks %}
-        <li>
-            <a class="dropdown-item" href="{% url 'stalks:stalk_week_detail' week.id %}">
-                {{ week.sunday|date:"M d Y" }} -- {{ week.saturday|date:"M d Y" }}
-            </a>
-        </li>
-    {% endfor %}
-{% endblock %}
 
 {% block nav_add_day_price %}
     <a id="navAddDayPrice" class="nav-link" href="{% url 'stalks:add_day_price' stalkweek.id %}">Add Day Price</a>
@@ -20,25 +10,38 @@
     <a id="navAddTurnipStacks" class="nav-link" href="{% url 'stalks:add_turnip_stacks' stalkweek.id %}">Add Turnip Stacks</a>
 {% endblock %}
 
-{% block nav_sell_turnip_stacks %}
-    <a id="navSellTurnipStacks" class="nav-link" href="{% url 'stalks:sell_turnip_stacks'  stalkweek.id %}">Sell Turnip Stacks</a>
-{% endblock %}
-
 {% block body_block %}
-<h2>Stalk Week Detail</h2>
 
-<h3>Week: Sunday: {{ stalkweek.sunday }} -- Saturday: {{ stalkweek.saturday }}</h3>
+<hr>
+
+<h3>Sunday: {{ stalkweek.sunday }} - Saturday: {{ stalkweek.saturday }}</h3>
+
+<hr>
 
 {% load humanize %}
 
-<p>
-    Stacks: {{ stalkweek.get_turnip_stacks|length|intcomma }} <br>
-    Turnips: {{ stalkweek.turnip_count|intcomma }} <br>
-    Buy Price: {{ stalkweek.buy_price|intcomma }} Bells<br>
-    Total Cost: {{ stalkweek.get_cost|intcomma }} Bells<br>
-    Total Sales: {{ stalkweek.get_sales|intcomma }} Bells<br>
-    Profit: {{ stalkweek.get_profit|intcomma }} Bells
-</p>
+<table>
+    <tr>
+        <th>Turnips</th>
+        <th>Costs</th>
+        <th>Sales</th>
+    </tr>
+    <tr>
+        <td>
+            Stacks: {{ stalkweek.get_turnip_stacks|intcomma }} <br>
+            Total: {{ stalkweek.turnip_count|intcomma }}
+        </td>
+        <td>
+           Buy Price: {{ stalkweek.buy_price|intcomma }} Bells<br>
+           Total: {{ stalkweek.get_cost|intcomma }} Bells
+        </td>
+        <td>
+            Total: {{ stalkweek.get_sales|intcomma }} Bells<br>
+            Profit: {{ stalkweek.get_profit|intcomma }} Bells
+        </td>
+    </tr>
+</table>
+<hr>
 
 <ul>
     {% for day_price in stalkweek.dayprices_set.all %}
@@ -46,18 +49,15 @@
     {% endfor %}
 </ul>
 
-<a href="{% url 'stalks:add_day_price' stalkweek.id %}" class="btn btn-success btn-lg">
-    <i style="padding-right: 10px" class="fa fa-plus"></i>Day Price
-</a>
+<button style="margin-top: 20px" class="btn btn-success btn-lg" id="submit-button">
+        <i class="fa fa-plus" style="padding-right: 10px" ></i> Day Price
+</button>
 
-<br>
-<br>
+<hr>
 
 <ul>
-    {% for turnip_row in stalkweek.get_merged_turnips %}
-        <li>
-            {{ turnip_row }}
-        </li>
+    {% for stacks in stalkweek.turnipstacks_set.all %}
+        <li>{{ stacks }}</li>
     {% endfor %}
 </ul>
 
@@ -65,8 +65,10 @@
     <i style="padding-right: 10px" class="fa fa-plus"></i>Turnip Stacks
 </a>
 
-<a href="{% url 'stalks:sell_turnip_stacks' stalkweek.id %}" class="btn btn-success btn-lg">
-    <i style="padding-right: 10px" class="fa fa-bell"></i>Turnip Stacks
+<hr>
+
+<a href="{% url 'stalks:delete_stalk_week' stalkweek.id %}" class="btn btn-danger btn-lg">
+    <i style="padding-right: 10px" class="fa fa-times"></i>Delete Stalk Week
 </a>
 
 {% endblock %}

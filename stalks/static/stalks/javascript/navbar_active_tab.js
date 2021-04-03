@@ -5,11 +5,12 @@ function trim(string, trimChars)
     return fixedStr;
 }
 
-$(function () {
+function ChangeActiveNavbarLink()
+{
     const path = trim(window.location.pathname, '/');
     const shldSlice = (new RegExp('.+/.+')).test(path);
     let file_name = trim(shldSlice ? path.slice(path.lastIndexOf('/')) : path, '/');
-    console.log(`Path: ${path} FileName: ${file_name}`);
+    //console.log(`Path: ${path} FileName: ${file_name}`);
 
     $('.nav-link').each(function ()
     {
@@ -39,4 +40,8 @@ $(function () {
                 $('#navHomePageLink').addClass('active');
         }
     }
+}
+
+$(function () {
+    ChangeActiveNavbarLink();
 });

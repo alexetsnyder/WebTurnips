@@ -1,0 +1,31 @@
+{% extends 'stalks/navbar_template.html' %}
+
+{% block title_block %}Stalk Weeks{% endblock %}
+
+{% block body_block %}
+
+<h1> Stalk Weeks </h1>
+
+{% if stalkweek_list %}
+    {% for week in stalkweek_list %}
+        <div class="card">
+            <div class="container">
+                <h4><b>{{ week.get_card_header }}</b></h4>
+                <p>{{ week.get_card_content }}</p>
+            </div>
+            <script>
+                $(this).click(function () {
+                    document.location.href = {{ week.id }};
+                });
+            </script>
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% load static %}
+
+<a href="{% url 'stalks:add_stalk_week' %}" class="btn btn-success btn-lg">
+    <i class="fa fa-plus link-button"></i>Stalk Week
+</a>
+
+{% endblock %}

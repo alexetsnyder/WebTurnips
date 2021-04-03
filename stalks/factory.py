@@ -1,9 +1,9 @@
 from stalks.date_helper import DateHelper
-from stalks.models import StalkWeek, TurnipStack, DayPrices
+from stalks.models import StalkWeek, TurnipStacks, DayPrices
 
 
 def create_turnip_stack(stalk_week_id, sell_date, sell_price):
-    return TurnipStack.objects.create(stalk_week_id=stalk_week_id, sell_date=sell_date, sell_price=sell_price)
+    return TurnipStacks.objects.create(stalk_week_id=stalk_week_id, sell_date=sell_date, sell_price=sell_price)
 
 
 def create_turnip_stacks(stalk_week_id, sell_date, sell_price, turnip_stacks):

@@ -1,6 +1,6 @@
 body {
    background-color: #cdcfaf;
-   /*background-color: #c4bcb4;*/
+    font-family: "Lucida Console", "Courier", monospace;
 }
 
 #bodyBlockWrapper {
@@ -11,15 +11,46 @@ body {
     background-color: #bb1f44;
 }
 
-th {
-    text-align: left;
-}
-
 td {
     padding-left: 20px;
-    text-align: right;
+    text-align: center;
 }
 
+.card {
+  margin: 10px 10px 10px 0px;
+  padding: 5px;
+  width: 600px;
+  /*background-color: paleturquoise;*/
+  background-color: plum;
+  /*background-color: palevioletred;*/
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.link-button {
+  padding-right: 10px;
+}
+
+hr {
+    width: 60%;
+}
+
+.in-line {
+    display: inline-block;
+}
+
+table, th, td {
+    border: 2px solid black;
+    padding: 6px;
+}
 
 
 

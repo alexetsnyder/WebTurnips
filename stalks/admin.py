@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import StalkWeek, TurnipStack, DayPrices
+from .models import StalkWeek, TurnipStacks, DayPrices
 
 
 class TurnipStackInLine(admin.StackedInline):
-    model = TurnipStack
+    model = TurnipStacks
 
 
 class DayPricesTabular(admin.TabularInline):
